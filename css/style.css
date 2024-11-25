@@ -1,0 +1,176 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,body {height: 100%;width: 100%;}
+
+
+body {
+    background: #f6f6f6;
+    font-family: "Poppins", sans-serif;
+    font-optical-sizing: auto;
+    line-height:  1.5;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+p {
+    line-height:  1.5;
+}
+
+img {
+    max-width: 100%;
+}
+
+header {
+    border-bottom: 1px solid #F1F1F4;
+    padding: 10px 0;
+    background: #fff;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    position:  sticky;
+    top: 0;
+    z-index: 9;
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .logo {
+    max-width: 70px;
+    overflow: hidden;
+}
+
+header .logo img {
+    display: flex;
+    border-radius: 5px;
+}
+
+header .header-right {
+    display: flex;
+    max-width: 280px;
+    gap: 15px;
+    font-size: 0px;
+}
+
+.heading {
+    background: #1444b3;
+    padding: 40px;
+    border: 1px solid #F1F1F4;
+    border-radius: 0px 0px 16px  16px;
+    margin: 0 0 20px 0;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    line-height: 1.2;
+}
+
+.heading h1 {
+    margin: 0 0 10px;
+    color: #fff;
+    font-size: 34px;
+}
+
+.heading p {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: #eee;
+}
+
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    background: #fff;
+    border: 1px solid #F1F1F4;
+    border-radius: 16px;
+    margin-bottom:  45px;
+}
+
+
+.card h6 {
+    color: #333;
+    font-size: 24px;
+    padding: 20px;
+    border-bottom: 1px solid #F1F1F4;
+}
+
+
+.card-body {
+    padding:  25px;
+}
+
+.card-body .text ~ .media {
+    padding-top:  20px;
+}
+
+.card-body .media ~ .text {
+    padding-top:  20px;
+}
+
+.card-body .text p {
+    margin:  0 0 12px;
+}
+
+.card-body .alter {
+    background: #fff1ab;
+    padding: 15px;
+    color: #333;
+    border-radius: 16px;
+}
+.card-body .alter p {
+    margin:  0;
+}
+
+
+
+@media(max-width: 767px){
+    .heading {
+        padding: 20px;
+    }
+    .card-body {
+        padding: 20px;
+    }
+    .card {
+        margin-bottom: 25px;
+    }
+}
+
+
+
+@media(max-width: 600px){
+    header .logo {
+        width: 55px;
+    }
+    header .header-right {
+        max-width: 220px;
+    }
+}
+
+
+
+.footer {
+    background: #fff;
+    text-align: center;
+    padding: 15px 0;
+    border-top: 1px solid #ededed;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 14px;
+}
