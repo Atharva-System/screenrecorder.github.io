@@ -21,6 +21,7 @@ body {
 
 main {
     flex: 1;
+    background-color: #10071D;
 }
 
 .container {
@@ -57,7 +58,11 @@ header .logo {
     max-width: 70px;
     overflow: hidden;
 }
-
+header .logo h6 {
+    color: #333;
+    font-size: 24px;
+    padding-left: 20px;
+}
 header .logo img {
     display: flex;
     border-radius: 5px;
@@ -74,16 +79,17 @@ header .header-right {
     background: #1444b3;
     padding: 40px;
     border: 1px solid #F1F1F4;
-    border-radius: 0px 0px 16px  16px;
+    border-radius: 16px;
     margin: 0 0 20px 0;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     line-height: 1.2;
+    margin-top: 16px;
 }
 
 .heading h1 {
     margin: 0 0 10px;
     color: #fff;
-    font-size: 34px;
+    font-size: 24px;
 }
 
 .heading p {
@@ -98,14 +104,14 @@ header .header-right {
     background: #fff;
     border: 1px solid #F1F1F4;
     border-radius: 16px;
-    margin-bottom:  45px;
+    margin-bottom:  24px;
 }
 
 
 .card h6 {
     color: #333;
-    font-size: 24px;
-    padding: 20px;
+    font-size: 22px;
+    padding: 20px 20px 10px;
     border-bottom: 1px solid #F1F1F4;
 }
 
@@ -115,7 +121,7 @@ header .header-right {
 }
 
 .card-body .text ~ .media {
-    padding-top:  20px;
+    padding-top:  12px;
 }
 
 .card-body .media ~ .text {
@@ -123,7 +129,7 @@ header .header-right {
 }
 
 .card-body .text p {
-    margin:  0 0 12px;
+    margin:  0 0 6px;
 }
 
 .card-body .alter {
@@ -143,10 +149,10 @@ header .header-right {
         padding: 20px;
     }
     .card-body {
-        padding: 20px;
+        padding: 16px 20px;
     }
     .card {
-        margin-bottom: 25px;
+        margin-bottom: 24px;
     }
 }
 
@@ -164,10 +170,11 @@ header .header-right {
 
 
 .footer {
-    background: #fff;
+    background: #2A2D39;
     text-align: center;
     padding: 15px 0;
-    border-top: 1px solid #ededed;
+    color: #fff;
+/*    border-top: 1px solid #ededed;*/
 }
 
 .footer p {
