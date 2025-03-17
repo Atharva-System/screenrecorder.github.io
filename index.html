@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaming Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #10071D;
+            color: white;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 800px;
+        }
+        .grid-item {
+            text-align: center;
+        }
+        .grid-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+        .grid-item img:hover {
+            transform: scale(1.05);
+        }
+        .grid-item p {
+            margin: 10px 0 0;
+            font-size: 14px;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <script>
+            const images = [
+                { src: "assets/placeholder.png", alt: "Youtube", link: "/guide_youtube.html" },
+                { src: "assets/placeholder.png", alt: "Facebook", link: "/guide_facebook.html" },
+                { src: "assets/placeholder.png", alt: "Twitch", link: "/guide_twitch.html" },
+                { src: "assets/placeholder.png", alt: "Telegram", link: "/guide_telegram.html" },
+                { src: "assets/placeholder.png", alt: "Vimeo", link: "/guide_vimeo.html" },
+                { src: "assets/placeholder.png", alt: "ReStream", link: "/guide_restream.html" },
+                { src: "assets/placeholder.png", alt: "Rumble", link: "/guide_rumble.html" },
+                { src: "assets/placeholder.png", alt: "Trovo", link: "/guide_trovo.html" },
+                { src: "assets/placeholder.png", alt: "DLive", link: "/guide_dlive.html" },
+                { src: "assets/placeholder.png", alt: "Nimo TV", link: "/guide_nimotv.html" },
+                { src: "assets/placeholder.png", alt: "Kick", link: "/guide_kick.html" },
+            ];
+
+            images.forEach(image => {
+                document.write(`
+                    <div class="grid-item">
+                        <a href="${image.link}" target="_blank">
+                            <img src="${image.src}" alt="${image.alt}">
+                        </a>
+                        <p>${image.alt}</p>
+                    </div>
+                `);
+            });
+        </script>
+    </div>
+</body>
+</html>
