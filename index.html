@@ -5,65 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Streaming Guide</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
+            padding: 20px;
             background-color: #10071D;
             color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0 40px;
+            color: #fff;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            max-width: 800px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
         }
+
         .grid-item {
             text-align: center;
+            transition: transform 0.3s ease;
         }
-        .grid-item img {
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .logo-container {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 20px;
+            padding: 15px;
+            border: 2px solid rgba(255, 255, 255, 1);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .grid-item:hover .logo-container {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-container img {
             width: 100%;
-            height: auto;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s ease-in-out;
+            height: 100%;
+            object-fit: contain;
+            display: block;
         }
-        .grid-item img:hover {
-            transform: scale(1.05);
+
+        /* Specific background adjustments for certain logos */
+        .logo-container[data-platform="castr"],
+        .logo-container[data-platform="soop"] {
+            background: white !important;
         }
+
+        .logo-container[data-platform="dlive"],
+        .logo-container[data-platform="nimo_tv"] {
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .grid-item a {
+            text-decoration: none;
+            display: block;
+        }
+
         .grid-item p {
-            margin: 10px 0 0;
-            font-size: 14px;
+            margin-top: 15px;
+            font-size: 16px;
             color: #ddd;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .grid-item:hover p {
+            color: #fff;
+        }
+
+        .platform-link {
+            position: relative;
+        }
+
+        .platform-link::after {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .grid-item:hover .platform-link::after {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 20px;
+            }
+            
+            .logo-container {
+                width: 120px;
+                height: 120px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .logo-container {
+                width: 110px;
+                height: 110px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+                margin: 10px 0 30px;
+            }
+            
+            .grid-item p {
+                font-size: 14px;
+            }
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 1200px;
         }
     </style>
 </head>
 <body>
+    <h1>Streaming Platforms Guide</h1>
+    
     <div class="grid-container">
         <script>
             const images = [
-                { src: "assets/placeholder.png", alt: "Youtube", link: "/guide_youtube.html" },
-                { src: "assets/placeholder.png", alt: "Facebook", link: "/guide_facebook.html" },
-                { src: "assets/placeholder.png", alt: "Twitch", link: "/guide_twitch.html" },
-                { src: "assets/placeholder.png", alt: "Telegram", link: "/guide_telegram.html" },
-                { src: "assets/placeholder.png", alt: "Vimeo", link: "/guide_vimeo.html" },
-                { src: "assets/placeholder.png", alt: "ReStream", link: "/guide_restream.html" },
-                { src: "assets/placeholder.png", alt: "Rumble", link: "/guide_rumble.html" },
-                { src: "assets/placeholder.png", alt: "Trovo", link: "/guide_trovo.html" },
-                { src: "assets/placeholder.png", alt: "DLive", link: "/guide_dlive.html" },
-                { src: "assets/placeholder.png", alt: "Nimo TV", link: "/guide_nimotv.html" },
-                { src: "assets/placeholder.png", alt: "Kick", link: "/guide_kick.html" },
+                { src: "assets/castr.jpg", alt: "Castr", link: "/screenrecorder.github.io/guide_castr.html", platform: "castr" },
+                { src: "assets/dlive.png", alt: "DLive", link: "/screenrecorder.github.io/guide_dlive.html", platform: "dlive" },
+                { src: "assets/facebook.svg", alt: "Facebook", link: "/screenrecorder.github.io/guide_facebook.html", platform: "facebook" },
+                { src: "assets/kick.svg", alt: "Kick", link: "/screenrecorder.github.io/guide_kick.html", platform: "kick" },
+                { src: "assets/nimo_tv.png", alt: "Nimo TV", link: "/screenrecorder.github.io/guide_nimotv.html", platform: "nimo_tv" },
+                { src: "assets/restream.svg", alt: "ReStream", link: "/screenrecorder.github.io/guide_restream.html", platform: "restream" },
+                { src: "assets/rumble.svg", alt: "Rumble", link: "/screenrecorder.github.io/guide_rumble.html", platform: "rumble" },
+                { src: "assets/soop.jpg", alt: "Soop", link: "/screenrecorder.github.io/guide_soop.html", platform: "soop" },
+                { src: "assets/telegram.svg", alt: "Telegram", link: "/screenrecorder.github.io/guide_telegram.html", platform: "telegram" },
+                { src: "assets/trovo.svg", alt: "Trovo", link: "/screenrecorder.github.io/guide_trovo.html", platform: "trovo" },
+                { src: "assets/twitch.svg", alt: "Twitch", link: "/screenrecorder.github.io/guide_twitch.html", platform: "twitch" },
+                { src: "assets/vimeo.svg", alt: "Vimeo", link: "/screenrecorder.github.io/guide_vimeo.html", platform: "vimeo" },
+                { src: "assets/youtube.svg", alt: "YouTube", link: "/screenrecorder.github.io/guide_youtube.html", platform: "youtube" }
             ];
 
             images.forEach(image => {
                 document.write(`
                     <div class="grid-item">
-                        <a href="${image.link}" target="_blank">
-                            <img src="${image.src}" alt="${image.alt}">
+                        <a href="${image.link}" target="_blank" class="platform-link">
+                            <div class="logo-container" data-platform="${image.platform}">
+                                <img src="${image.src}" alt="${image.alt}" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMyMjIiIHJ4PSIxMCIvPjx0ZXh0IHg9IjUwIiB5PSI1NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+JHtpbmFnZS5hbHR9PC90ZXh0Pjwvc3ZnPg=='">
+                            </div>
                         </a>
                         <p>${image.alt}</p>
                     </div>
@@ -71,5 +213,50 @@
             });
         </script>
     </div>
+
+    <footer>
+        <p>Qveedo - Atharva System &copy; 2025 - All logos belong to their respective owners</p>
+    </footer>
+
+    <script>
+        // Optional: Add some JavaScript for additional functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click effect
+            const gridItems = document.querySelectorAll('.grid-item');
+            
+            gridItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (e.target.tagName !== 'A') {
+                        const link = this.querySelector('a');
+                        if (link) {
+                            window.open(link.href, '_blank');
+                        }
+                    }
+                });
+            });
+            
+            // Preload images to avoid flash of unstyled content
+            const allImages = document.querySelectorAll('.logo-container img');
+            let loadedImages = 0;
+            const totalImages = allImages.length;
+            
+            allImages.forEach(img => {
+                if (img.complete) {
+                    loadedImages++;
+                } else {
+                    img.addEventListener('load', function() {
+                        loadedImages++;
+                        if (loadedImages === totalImages) {
+                            console.log('All images loaded');
+                        }
+                    });
+                    img.addEventListener('error', function() {
+                        loadedImages++;
+                        console.log('Failed to load:', this.src);
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
