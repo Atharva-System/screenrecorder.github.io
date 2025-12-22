@@ -55,6 +55,8 @@
             text-align: center;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+            cursor: pointer; /* Important for iOS */
+            -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
         }
 
         .grid-item:hover {
@@ -72,6 +74,7 @@
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            cursor: pointer; /* Important for iOS */
         }
 
         .logo-container img {
@@ -82,6 +85,7 @@
             transition: transform 0.4s ease;
             position: relative;
             z-index: 1;
+            pointer-events: none; /* Improve click handling */
         }
 
         .grid-item:hover .logo-container img {
@@ -92,6 +96,21 @@
             text-decoration: none;
             display: block;
             color: inherit;
+            width: 100%;
+            height: 100%;
+            cursor: pointer; /* Important for iOS */
+        }
+
+        /* iOS-specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            .grid-item {
+                -webkit-touch-callout: none; /* Prevent iOS text selection */
+            }
+            
+            .grid-item a {
+                -webkit-user-select: none; /* Prevent text selection */
+                user-select: none;
+            }
         }
 
         /* Tablet/iPad: 3 columns (600px - 1024px) */
@@ -250,6 +269,12 @@
         .grid-item:nth-child(13) {
             animation-delay: 0.7s;
         }
+        
+        /* Active state for mobile tap */
+        .grid-item:active .logo-container {
+            transform: scale(0.95);
+            opacity: 0.8;
+        }
     </style>
 </head>
 
@@ -257,7 +282,6 @@
     <div class="grid-container">
         <script>
             const images = [
-
                 { src: "assets/youtube.png", alt: "YouTube", link: "/screenrecorder.github.io/guide_youtube.html", platform: "youtube" },
                 { src: "assets/facebook.png", alt: "Facebook", link: "/screenrecorder.github.io/guide_facebook.html", platform: "facebook" },
                 { src: "assets/twitch.png", alt: "Twitch", link: "/screenrecorder.github.io/guide_twitch.html", platform: "twitch" },
@@ -271,14 +295,13 @@
                 { src: "assets/kick.png", alt: "Kick", link: "/screenrecorder.github.io/guide_kick.html", platform: "kick" },
                 { src: "assets/castr.png", alt: "Castr", link: "/screenrecorder.github.io/guide_castr.html", platform: "castr" },
                 { src: "assets/soop.png", alt: "Soop", link: "/screenrecorder.github.io/guide_soop.html", platform: "soop" },
-
             ];
 
             images.forEach(image => {
                 document.write(`
                     <div class="grid-item">
-                        <a href="${image.link}" target="_blank">
-                            <div class="logo-container" data-platform="${image.platform}">
+                        <a href="${image.link}" target="_blank" class="grid-link" data-platform="${image.platform}">
+                            <div class="logo-container">
                                 <img src="${image.src}" alt="${image.alt}" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMxRDFCM0IiIHJ4PSIxMiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiNGRkYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIwLjNlbSI+JHtpbmFnZS5hbHR9PC90ZXh0Pjwvc3ZnPg=='">
                             </div>
                         </a>
@@ -293,25 +316,104 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Improved click handling
-            const gridItems = document.querySelectorAll('.grid-item');
+        // iOS WebView click fix
+        function isIOS() {
+            return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        }
 
+        function isAndroid() {
+            return /Android/.test(navigator.userAgent);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Multiple click event handlers for maximum compatibility
+            const gridItems = document.querySelectorAll('.grid-item');
+            const gridLinks = document.querySelectorAll('.grid-link');
+
+            // Method 1: Direct click on grid items
             gridItems.forEach(item => {
-                item.addEventListener('click', function (e) {
-                    if (!e.target.closest('a')) {
-                        const link = this.querySelector('a');
-                        if (link) {
-                            // Add click feedback
-                            this.style.transform = 'translateY(-4px) scale(0.98)';
-                            setTimeout(() => {
-                                window.open(link.href, '_blank');
-                                this.style.transform = '';
-                            }, 150);
-                        }
+                // Click event
+                item.addEventListener('click', handleClick);
+                
+                // Touch events for mobile
+                item.addEventListener('touchstart', handleTouchStart, { passive: true });
+                item.addEventListener('touchend', handleTouchEnd, { passive: true });
+                
+                // Add keyboard support
+                item.setAttribute('tabindex', '0');
+                item.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleClick.call(this, e);
                     }
                 });
             });
+
+            // Method 2: Direct click on links
+            gridLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Let the default link behavior happen
+                    console.log('Link clicked:', this.href);
+                });
+            });
+
+            function handleClick(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const link = this.querySelector('a');
+                if (link) {
+                    // Visual feedback
+                    this.style.transform = 'translateY(-4px) scale(0.95)';
+                    this.style.opacity = '0.9';
+                    
+                    // Open link
+                    setTimeout(() => {
+                        window.open(link.href, '_blank');
+                        // Reset style after a delay
+                        setTimeout(() => {
+                            this.style.transform = '';
+                            this.style.opacity = '';
+                        }, 300);
+                    }, 100);
+                }
+            }
+
+            let touchStartTime;
+            function handleTouchStart(e) {
+                touchStartTime = Date.now();
+                // Visual feedback on touch start
+                this.style.transform = 'translateY(-2px) scale(0.98)';
+                this.style.opacity = '0.9';
+            }
+
+            function handleTouchEnd(e) {
+                const touchDuration = Date.now() - touchStartTime;
+                // Only trigger click if touch was short (not a scroll)
+                if (touchDuration < 300) {
+                    handleClick.call(this, e);
+                } else {
+                    // Reset if it was a scroll
+                    this.style.transform = '';
+                    this.style.opacity = '';
+                }
+            }
+
+            // Add iOS-specific fixes
+            if (isIOS()) {
+                // iOS needs cursor: pointer on clickable elements
+                document.body.style.cursor = 'pointer';
+                
+                // Prevent long press on iOS
+                document.addEventListener('touchstart', function() {}, {passive: true});
+                
+                // Force a repaint to ensure click handlers are attached
+                setTimeout(() => {
+                    document.body.style.display = 'none';
+                    document.body.offsetHeight; // Trigger reflow
+                    document.body.style.display = '';
+                }, 100);
+            }
 
             // Improved image loading
             const allImages = document.querySelectorAll('.logo-container img');
@@ -326,6 +428,15 @@
                     img.addEventListener('error', function () {
                         this.classList.add('error');
                     });
+                }
+            });
+            
+            // Additional click handler for the entire container (fallback)
+            document.querySelector('.grid-container').addEventListener('click', function(e) {
+                // If a grid item wasn't clicked directly, find the closest one
+                const gridItem = e.target.closest('.grid-item');
+                if (gridItem && !e.target.closest('a')) {
+                    handleClick.call(gridItem, e);
                 }
             });
         });
